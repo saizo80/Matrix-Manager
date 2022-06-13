@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 import os
 
-from sympy import Matrix, pprint
+import sympy
+
+from sympy import *
 
 
 def get_input() -> Matrix:
     """Get input from the user and convert to a Matrix Object"""
     # initialize the variables for the loop
-    temp = "0"
+    temp = 1
     matrix = Matrix()
     counter = 0
 
@@ -28,11 +30,20 @@ def row_echelon(matrix: Matrix) -> Matrix:
     return matrix.rref()
 
 
+def determin(matrix: Matrix):
+    """Calculate and return the determinent of a matrix"""
+    try:
+        return matrix.det()
+    except sympy.matrices.common.NonSquareMatrixError:
+        print("Matrix is not a Square Matrix")
+
+
 def main_menu():
     """The main menu loop"""
     os.system('cls||clear')
     matrix = get_input()
-    options = ['Reduced Row Echelon Form', 'Change Matrix', 'Quit']
+    options = ['Reduced Row Echelon Form',
+               'Determinent', 'Change Matrix', 'Quit']
     rref = None
     det = None
 
@@ -67,6 +78,21 @@ def main_menu():
                 input()
             else:
                 pprint(rref)
+                input()
+        elif choice == 'Determinent':
+            # Calculate the determinent if not already saved
+            os.system('cls||clear')
+            if not det:
+                det = determin(matrix)
+                if not det:
+                    input()
+                    continue
+                pprint(matrix)
+                print(det)
+                input()
+            else:
+                pprint(matrix)
+                print(det)
                 input()
 
         elif choice == 'Change Matrix':
