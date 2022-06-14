@@ -2,7 +2,6 @@
 import os
 
 import sympy
-
 from sympy import *
 
 
@@ -60,7 +59,7 @@ def determin(matrix: Matrix):
 def inverse(matrix: Matrix):
     """Return the inverse of a matrix"""
     try:
-        return matrix**-1
+        return matrix.inv()
     except sympy.matrices.common.NonSquareMatrixError:
         print('Matrix is not invertible')
         return 0
